@@ -1,12 +1,15 @@
 import express from "express";
+import {validateUser} from "../dto/user.js";
+import {handleValidationErrors} from "../middleware/validation.js";
+import UserController from "../controller/user.js";
 
 const router = express.Router();
 
-router.route("/")
-  .get((req, res) => {
-    res.send("ok")
-  })
-  .post((req, res) => {})
+router.get("/", (req, res) => {
+  res.send("ok");
+})
+
+router.post("/", validateUser, handleValidationErrors, UserController.createUser);
 
 router.get("/:id", (req, res) => {})
 

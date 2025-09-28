@@ -16,6 +16,7 @@
     "@dotenvx/dotenvx": "^1.51.0",
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
+    "express-validator": "^7.2.1",
     "mongoose": "^8.18.2"
   },
   "devDependencies": {

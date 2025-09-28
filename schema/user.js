@@ -24,12 +24,6 @@ userSchema.pre("save", async function(next) {
   next();
 });
 
-userSchema.pre("save", async function(next) {
-  // todo: really check for email uniqueness
-  // https://mongoosejs.com/docs/validation.html#the-unique-option-is-not-a-validator
-  next();
-})
-
 userSchema.methods.fullname = function fullname() {
   return `${this.firstname} ${this.lastname}`;
 }
