@@ -15,8 +15,7 @@ export default class ProjectService {
     if (isValidMongoId(id)) {
       return Project.findById(id)
         .populate("owner", "firstname lastname email")
-        .populate("members", "firstname lastname email")
-        .sort({ createdAt: -1 });
+        .populate("members", "firstname lastname email");
     }
     return Project.find()
       .populate("owner", "firstname lastname email")

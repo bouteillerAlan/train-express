@@ -1,0 +1,4 @@
+- add auth (jwt)
+- add test
+- do some ci/cd
+- maybe also a docker for the api itself

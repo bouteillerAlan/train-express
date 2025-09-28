@@ -16,7 +16,7 @@ export default class UserService {
 
   static getUser = async (id) => {
     if (isValidMongoId(id)) {
-      return User.findById(id).sort({ createdAt: -1 });
+      return User.findById(id);
     }
     return User.find().sort({ createdAt: -1 });
   }

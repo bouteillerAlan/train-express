@@ -1,17 +1,26 @@
 import express from "express";
+import {validateCreateTask, validateUpdateTask} from "../dto/task.js";
+import {handleValidationErrors} from "../middleware/validation.js";
+import TaskController from "../controller/task.js";
 
 const router = express.Router();
 
-router.route("/")
-  .get((req, res) => {
-    res.send("ok")
-  })
-  .post((req, res) => {})
+router.get("/", TaskController.getAllTasks);
 
-router.get("/:id", (req, res) => {})
+router.get("/:id", TaskController.getOneTask);
 
-router.put("/:id", (req, res) => {})
+router.post("/", validateCreateTask, handleValidationErrors, TaskController.createTask);
 
-router.delete("/:id", (req, res) => {})
+router.put("/:id", validateUpdateTask, handleValidationErrors, TaskController.updateOneTask);
+
+router.delete("/:id", TaskController.deleteOneTask);
+
+router.get("/project/:projectId", TaskController.getTasksByProject);
+
+router.get("/assignee/:assigneeId", TaskController.getTasksByAssignee);
+
+router.get("/status/:status", TaskController.getTasksByStatus);
+
+router.get("/due-soon", TaskController.getTasksDueSoon);
 
 export default router;
