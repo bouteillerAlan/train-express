@@ -1,10 +1,15 @@
 import {router} from "express/lib/application.js";
 
-router.route('project')
-  .get('/:id', (req, res) => {})
-  .get((req, res) => {})
+router.route('/')
+  .get((req, res) => {
+    res.send('ok')
+  })
   .post((req, res) => {})
-  .put('/:id', (req, res) => {})
-  .delete('/:id', (req, res) => {})
 
-module.exports = router;
+router.get('/:id', (req, res) => {})
+
+router.put('/:id', (req, res) => {})
+
+router.delete('/:id', (req, res) => {})
+
+export default router;
