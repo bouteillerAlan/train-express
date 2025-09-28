@@ -3,7 +3,7 @@ import {isValidMongoId} from "../utils/string.js";
 import {NotFoundError} from "../utils/errors.js";
 
 // todo: the hash is done in the schema via pre save hook
-// this is just a choice it can be done in the service has well
+// this is just a personal choice, it can be done in the service has well
 
 export default class UserService {
   static createUser = async (user) => {
@@ -24,18 +24,18 @@ export default class UserService {
   static updateUser = async (id, user) => {
     if (isValidMongoId(id)) {
       const updatedUser = await User.findOneAndUpdate({_id: id}, user, {new: true});
-      if (!updatedUser) {
-        throw new NotFoundError("User not found");
-      }
+      if (!updatedUser) throw new NotFoundError("User not found");
       return updatedUser;
     } else {
       throw new Error("Invalid id");
     }
   }
 
-  static removeUser = async (id) => {
+  static deleteUser = async (id) => {
     if (isValidMongoId(id)) {
-      return User.findByIdAndDelete(id);
+      const deletedUser = await User.findByIdAndDelete(id);
+      if (!deletedUser) throw new NotFoundError("User not found");
+      return deletedUser;
     } else {
       throw new Error("Invalid id");
     }
