@@ -1,4 +1,6 @@
-import {router} from "express/lib/application.js";
+import express from "express";
+
+const router = express.Router();
 
 router.route('/')
   .get((req, res) => {
