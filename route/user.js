@@ -1,20 +1,18 @@
 import express from "express";
-import {validateUser} from "../dto/user.js";
+import {validateCreateUser, validateUpdateUser} from "../dto/user.js";
 import {handleValidationErrors} from "../middleware/validation.js";
 import UserController from "../controller/user.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("ok");
-})
+router.get("/", UserController.getAllUsers);
 
-router.post("/", validateUser, handleValidationErrors, UserController.createUser);
+router.get("/:id", UserController.getOneUser);
 
-router.get("/:id", (req, res) => {})
+router.post("/", validateCreateUser, handleValidationErrors, UserController.createUser);
 
-router.put("/:id", (req, res) => {})
+router.put("/:id", validateUpdateUser, handleValidationErrors, UserController.updateOneUser);
 
-router.delete("/:id", (req, res) => {})
+router.delete("/:id", UserController.deleteOneUser);
 
 export default router;

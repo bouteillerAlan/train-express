@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import stringCleanPlugin from "../plugin/string.js";
 import bcrypt from "bcrypt";
 import {Roles} from "../enums/user.js";
+import {getHash} from "../utils/hash.js";
 
 const { Schema } = mongoose;
 
@@ -19,8 +20,15 @@ userSchema.plugin(stringCleanPlugin, { fields: ["email", "firstname", "lastname"
 
 userSchema.pre("save", async function(next) {
   if (!this.isModified("password")) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  this.password = await getHash(this.password);
+  next();
+});
+
+userSchema.pre("findOneAndUpdate", async function(next) {
+  const update = this.getUpdate();
+  if (update.password) {
+    update.password = await getHash(update.password);
+  }
   next();
 });
 
