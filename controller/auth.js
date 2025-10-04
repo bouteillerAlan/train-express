@@ -13,7 +13,6 @@ export default class AuthController {
       if (!isValid) return res.status(401).json({success: false, message: "invalid credentials"});
 
       const payload = {
-        email: user.email,
         role: user.role,
         uid: user.id
       };

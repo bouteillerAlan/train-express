@@ -16,7 +16,12 @@ export default class AuthService {
       .setIssuer('urn:example:issuer')
       .setAudience('urn:example:audience')
       .setExpirationTime("2h")
-      .sign(secret);
+      .sign(secret)
+      .then((res) => res)
+      .catch((err) => {
+        console.error(err);
+        return null;
+      });
   }
 
   static verifyJwt = async (jwt) => {
