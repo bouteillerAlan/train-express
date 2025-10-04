@@ -14,7 +14,8 @@ export default class AuthController {
 
       const payload = {
         email: user.email,
-        role: user.role
+        role: user.role,
+        uid: user.id
       };
       const jwt = await AuthService.buildJwt(payload);
       if (!jwt) return res.status(500).json({success: false, message: "jwt build error"});

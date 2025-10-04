@@ -9,15 +9,12 @@ import {handleGenericErrors} from "./middleware/generic.js";
 
 const app = express();
 
-app.use(bodyParser.json());
-
-app.use("/auth", auth);
-app.use("/users", user);
-app.use("/tasks", task);
-app.use("/projects", project);
-
-// !!! must be last - in this order mongo > generic
-app.use(handleMongoErrors);
-app.use(handleGenericErrors);
+app.use(bodyParser.json())
+  .use("/auth", auth)
+  .use("/users", user)
+  .use("/tasks", task)
+  .use("/projects", project)
+  .use(handleMongoErrors) // !!! must be last - in this order mongo > generic
+  .use(handleGenericErrors);
 
 export default app;

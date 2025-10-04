@@ -2,10 +2,11 @@ import express from "express";
 import {validateCreateUser, validateUpdateUser} from "../dto/user.js";
 import {handleValidationErrors} from "../middleware/validation.js";
 import UserController from "../controller/user.js";
+import {handleAuth} from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", UserController.getAllUsers);
+router.get("/", (req, res, next) => handleAuth(req, res, next, ["dev"]), UserController.getAllUsers);
 
 router.get("/:id", UserController.getOneUser);
 
