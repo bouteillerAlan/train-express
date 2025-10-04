@@ -21,6 +21,18 @@ export default class UserService {
     return User.find().sort({ createdAt: -1 });
   }
 
+  static getUserByField = async (field, value) => {
+    const user = await User.findOne({[field]: value});
+    if (!user) throw new NotFoundError("User not found");
+    return user;
+  }
+
+  static getUserByFieldWithPassword = async (field, value) => {
+    const user = await User.findOne({[field]: value}).select("+password");
+    if (!user) throw new NotFoundError("User not found");
+    return user;
+  }
+
   static updateUser = async (id, user) => {
     if (isValidMongoId(id)) {
       const updatedUser = await User.findOneAndUpdate({_id: id}, user, {new: true});

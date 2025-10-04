@@ -1,9 +1,10 @@
 import express from "express";
+import AuthController from "../controller/auth.js";
+import {validateLogin} from "../dto/auth.js";
+import {handleValidationErrors} from "../middleware/validation.js";
 
 const router = express.Router();
 
-router.post("/", (req, res) => {
-  res.send('token');
-})
+router.post("/login", validateLogin, handleValidationErrors,  AuthController.getJwt);
 
 export default router;
